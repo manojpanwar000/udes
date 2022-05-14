@@ -5,15 +5,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>UDES_PWD</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap" rel="stylesheet">
 	<style type="text/css">
-
 		body {
-			background-color: #D2F7F8;
+			background-color: #066D86;
+			background-image: url('images/background.png');
+			background-size: 100px 100px;
+		}
+
+		#demo {
+			background-color: #066D86;
 			background-image: url('images/background.png');
 			background-size: 100px 100px;
 		}
@@ -28,110 +28,49 @@
 	        	उत्तराखंड डिप्लोमा इंजीनियर्स संघ <small class="fw-semibold text-danger"><br>लोक निर्माण विभाग</small>
 	        </a>
 	    </div>
-        <div class="container-fluid">
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav">
-                	Welcome
-                </div>
-                <div class="navbar-nav ms-auto">
-                    <a href="#" class="btn btn-sm btn-warning mx-1">Home</a>
-                    <a href="#" class="btn btn-sm btn-warning mx-1">Members</a>
-                    <a href="#" class="btn btn-sm btn-warning mx-1">Office</a>
-                </div>
-            </div>
-        </div>
     </nav>
 </div>
-<div class="table-responsive bg-light  m-3" >
-	<table id="example" class="table table-sm" style="font-family: 'Pragati Narrow', sans-serif; width:100%">
-		<thead>
-			<tr class="text-center align-middle fw-bold text-white " style="background-color: #2632F0;">
-				<td>सदस्यता<br>क्रमांक </td>
-				<td>सदस्य का नाम </td>
-				<td>पिता/ पति का नाम </td>
-				<td>कार्मिक कोड<br>/ फोन न</td>
-				<td>जन्म<br>तिथि</td>
-				<td>विभाग मे<br>योगदान</td>
-				<td>पद</td>
-				<td>कार्यालय</td>
-				<td>टिप्पणी</td>
-			</tr>
-		</thead>
-		<tbody >
-			
-		</tbody>
-	</table>
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators ">
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+  </div>
+  
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="images/1.jpeg" alt="Los Angeles" class="d-block mx-auto" style="max-height: 60vh">
+    </div>
+    <div class="carousel-item">
+      <img src="images/2.jpeg" alt="Chicago" class="d-block mx-auto" style="max-height: 60vh">
+    </div>
+    <div class="carousel-item">
+      <img src="images/3.jpeg" alt="New York" class="d-block mx-auto" style="max-height: 60vh">
+    </div>
+    <div class="carousel-item">
+      <img src="images/4.jpeg" alt="New York" class="d-block mx-auto" style="max-height: 60vh">
+    </div>
+  </div>
+  
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+	  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+	</svg>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+	  <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+	</svg>
+  </button>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
-<script src="data/members.js"></script>
-<script type="text/javascript">
-
-$('#example').dataTable( {
-	"dom": 'fBrtip',
-    "buttons": [
-            'pageLength','print'
-        ],
-    "lengthMenu": [
-        [ 10, 25, 50, -1 ],
-        [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-    ],
-    "data": members ,
-    "columns": [
-        {  "data": "membership_no" },
-        {  "data": function ( row, type, val, meta ) {
-	        	if(row["name"]){
-	        		return row["name_h"] + "<br><span class='fst-italic'>" + row["name"]+ "</span>";
-	        	}else{
-	        		return row["name_h"];
-	        	}
-        	}
-	    },
-        {  "data": function ( row, type, val, meta ) {
-	        	if(row["father_name"]){
-	        		return row["father_name_h"] + "<br><span class='fst-italic'>" + row["father_name"]+ "</span>";
-	        	}else{
-	        		return row["father_name_h"];
-	        	}	
-        	}
-	    },
-        {  "data": function ( row, type, val, meta ) {
-        		if(row["emp_id"]){
-	        		return row["emp_id"]+"<br>"+row["phone"];
-        		}else{
-        			return "";
-        		}
-        	}
-	    },
-	    { "data": "dob" },
-	    { "data": "doj" },
-	    {  "data": function ( row, type, val, meta ) {
-	        	if(row["prabhari"] == 1){
-	        		return row["short_post"]+"<br><span class='fst-italic'>(प्रभारी)</span>";
-	        	}else{
-	        		return row["short_post"];
-	        	}
-        	}
-	    },
-	    { "data": "office" },
-        { "data": "remark" },
-	    
-    ],
-
-    rowCallback: function(row, data, index){
-            if ( data.remark) {
-                $('td', row).css('background-color', '#FDFAB9');
-                //$('td', row).css('display', 'none');
-            }
-        }
-} );
-</script>
 </html>
