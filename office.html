@@ -65,14 +65,9 @@
 	    </div>
     </nav>
 </div>
-    <div id="demo" class="collapse">
-        <div id="prueba" class="prueba d-inline">
-        
-        </div>
-
-        <hr />
-
-    </div>
+<div>
+	<select id="offices"></select>
+</div>
 <div class="table-responsive bg-light  m-3" >
 	<table id="example" class="table table-sm" style="font-family: 'Pragati Narrow', sans-serif; width:100%">
 		<thead>
@@ -101,111 +96,73 @@
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
 <script src="data/members.js"></script>
+<script src="data/offices.js"></script>
 <script type="text/javascript">
-$(document).ready( function () {
-	var table = $('#example').dataTable( {
-		"dom": 'fBrtip',
-	    "buttons": [
-	            'pageLength','print'
-	        ],
-	    "lengthMenu": [
-	        [ 10, 25, 50, -1 ],
-	        [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-	    ],
-	    "data": members ,
-	    "columns": [
-	        {  "data": "membership_no" },
-	        {  "data": function ( row, type, val, meta ) {
-		        	if(row["name"]){
-		        		return row["name_h"] + "<br><span class='fst-italic'>" + row["name"]+ "</span>";
-		        	}else{
-		        		return row["name_h"];
-		        	}
+var usedNames = [];
+$.each(members, function(key, value) {
+	if (usedNames.indexOf(value.name) == -1) {
+    	$("#offices").append("<option value=" + key + ">" + value.office + "</option>");
+        usedNames.push(value.name);
+    }
+});
+
+$('#example').dataTable( {
+	"dom": 'fBrtip',
+    "buttons": [
+            'pageLength','print'
+        ],
+    "lengthMenu": [
+        [ 10, 25, 50, -1 ],
+        [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+    ],
+    "data": members ,
+    "columns": [
+        {  "data": "membership_no" },
+        {  "data": function ( row, type, val, meta ) {
+	        	if(row["name"]){
+	        		return row["name_h"] + "<br><span class='fst-italic'>" + row["name"]+ "</span>";
+	        	}else{
+	        		return row["name_h"];
 	        	}
-		    },
-	        {  "data": function ( row, type, val, meta ) {
-		        	if(row["father_name"]){
-		        		return row["father_name_h"] + "<br><span class='fst-italic'>" + row["father_name"]+ "</span>";
-		        	}else{
-		        		return row["father_name_h"];
-		        	}	
+        	}
+	    },
+        {  "data": function ( row, type, val, meta ) {
+	        	if(row["father_name"]){
+	        		return row["father_name_h"] + "<br><span class='fst-italic'>" + row["father_name"]+ "</span>";
+	        	}else{
+	        		return row["father_name_h"];
+	        	}	
+        	}
+	    },
+        {  "data": function ( row, type, val, meta ) {
+        		if(row["emp_id"]){
+	        		return row["emp_id"]+"<br>"+row["phone"];
+        		}else{
+        			return "";
+        		}
+        	}
+	    },
+	    { "data": "dob" },
+	    { "data": "doj" },
+	    {  "data": function ( row, type, val, meta ) {
+	        	if(row["prabhari"] == 1){
+	        		return row["short_post"]+"<br><span class='fst-italic'>(प्रभारी)</span>";
+	        	}else{
+	        		return row["short_post"];
 	        	}
-		    },
-	        {  "data": function ( row, type, val, meta ) {
-	        		if(row["emp_id"]){
-		        		return row["emp_id"]+"<br>"+row["phone"];
-	        		}else{
-	        			return "";
-	        		}
-	        	}
-		    },
-		    { "data": "dob" },
-		    { "data": "doj" },
-		    {  "data": function ( row, type, val, meta ) {
-		        	if(row["prabhari"] == 1){
-		        		return row["short_post"]+"<br><span class='fst-italic'>(प्रभारी)</span>";
-		        	}else{
-		        		return row["short_post"];
-		        	}
-	        	}
-		    },
-		    { "data": "office" },
-	        { "data": "remark" },
-		    
-	    ],
+        	}
+	    },
+	    { "data": "office" },
+        { "data": "remark" },
+	    
+    ],
 
-	   /* rowCallback: function(row, data, index){
-	            if ( data.remark) {
-	                $('td', row).css('background-color', '#FDFAB9');
-	                //$('td', row).css('display', 'none');
-	            }
-	    },*/
-	    initComplete: function () {
-            this.api().columns([1,2]).every(function () {
-                var Destino = '#prueba';
-                var column = this;
-                var select = $('<select class="Filtros select2 col-md-1" style="width:15%"><option value="">Seleccionar Todas</option></select>&nbsp; &nbsp; &nbsp; <script>$(".Filtros").select2({allowClear: true,theme: "classic",dropddownAutoWidth: false,placeholder: "Selecciona"});</script>')
-                    .appendTo(Destino)
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
-            table.on('draw', function () {
-                table.columns([0,1, 2, 3, 4, 5, 6]).indexes().each(function (idx) {
-                    var Destino = $("#prueba");
-                    var column = this;
-              
-             
-                   var select = $(table.column(idx)).find('select');
-
-                    if (select.val() === '') {
-                        select
-                            .empty()
-                            .append('<option value=""/>');
-
-                        table.column(idx, {
-                            search: 'applied'
-                        }).data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>');
-                        });
-                    }
-                });
-            });
-
-        },
-
-	} );
+    rowCallback: function(row, data, index){
+            if ( data.remark) {
+                $('td', row).css('background-color', '#FDFAB9');
+                //$('td', row).css('display', 'none');
+            }
+        }
 } );
-
 </script>
 </html>
