@@ -65,14 +65,10 @@
 	    </div>
     </nav>
 </div>
-    <div id="demo" class="collapse">
-        <div id="prueba" class="prueba d-inline">
-        
-        </div>
-
-        <hr />
-
-    </div>
+<div class="m-3" >
+	<select class="column_filter" id="col7_filter" data-column="7"> </select>
+	<select class="column_filter" id="col8_filter" data-column="8"> </select>
+</div>
 <div class="table-responsive bg-light  m-3" >
 	<table id="example" class="table table-sm" style="font-family: 'Pragati Narrow', sans-serif; width:100%">
 		<thead>
@@ -82,7 +78,7 @@
 				<td>पिता/ पति का नाम </td>
 				<td>कार्मिक कोड<br>/ फोन न</td>
 				<td>जन्म<br>तिथि</td>
-				<td>विभाग मे<br>योगदान</td>
+				<td>Joining<br>Date</td>
 				<td>पद</td>
 				<td>कार्यालय</td>
 				<td>टिप्पणी</td>
@@ -102,6 +98,59 @@
 
 <script src="data/members.js"></script>
 <script type="text/javascript">
+var offices = designations = [];
+
+$.each(members, function(key, value) {
+    offices.push(value.office);
+    designations.push(value.short_post);
+});
+
+offices = offices.filter((x, i, a) => a.indexOf(x) == i)
+designations = designations.filter((x, i, a) => a.indexOf(x) == i)
+
+var officeoptions = '<option value="">All</option>';
+
+for (var i = 0; i < offices.length; i++) {
+   officeoptions += '<option value="' + offices[i]+ '">' + offices[i] + '</option>';
+}
+$("#col7_filter").html(officeoptions);
+
+var designationoptions = '<option value="">All</option>';
+for (var i = 0; i < designations.length; i++) {
+   designationoptions += '<option value="' + designations[i]+ '">' + designations[i] + '</option>';
+}
+
+$("#col8_filter").html(designationoptions);
+
+
+/*console.log(offices);
+console.log(designations);*/
+/*
+$.each(members, function(key, value) {
+	if (designations.indexOf(value.name) == -1) {
+    	//$("#col8_filter").append("<option value=" + key + ">" + value.short_post + "</option>");
+    }
+});*/
+
+function filterColumn(i) {
+   	let t = $("#col" + i + "_filter option:selected").text();
+   	if(t == "All"){
+   		$('#example')
+        .DataTable()
+        .column(i)
+        .search("")
+        .draw();
+   	}else{
+
+    	$('#example')
+        .DataTable()
+        .column(i)
+        .search(t)
+        .draw();
+   	}
+    }
+
+
 $(document).ready( function () {
 	var table = $('#example').dataTable( {
 		"dom": 'fBrtip',
@@ -109,8 +158,8 @@ $(document).ready( function () {
 	            'pageLength','print'
 	        ],
 	    "lengthMenu": [
-	        [ 10, 25, 50, -1 ],
-	        [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+	        [ 15, 30, 100, -1 ],
+	        [ '15 rows', '30 rows','100 rows', 'Show all' ]
 	    ],
 	    "data": members ,
 	    "columns": [
@@ -154,57 +203,18 @@ $(document).ready( function () {
 		    
 	    ],
 
-	   /* rowCallback: function(row, data, index){
+	    rowCallback: function(row, data, index){
 	            if ( data.remark) {
 	                $('td', row).css('background-color', '#FDFAB9');
 	                //$('td', row).css('display', 'none');
 	            }
-	    },*/
-	    initComplete: function () {
-            this.api().columns([1,2]).every(function () {
-                var Destino = '#prueba';
-                var column = this;
-                var select = $('<select class="Filtros select2 col-md-1" style="width:15%"><option value="">Seleccionar Todas</option></select>&nbsp; &nbsp; &nbsp; <script>$(".Filtros").select2({allowClear: true,theme: "classic",dropddownAutoWidth: false,placeholder: "Selecciona"});</script>')
-                    .appendTo(Destino)
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                });
-            });
-            table.on('draw', function () {
-                table.columns([0,1, 2, 3, 4, 5, 6]).indexes().each(function (idx) {
-                    var Destino = $("#prueba");
-                    var column = this;
-              
-             
-                   var select = $(table.column(idx)).find('select');
-
-                    if (select.val() === '') {
-                        select
-                            .empty()
-                            .append('<option value=""/>');
-
-                        table.column(idx, {
-                            search: 'applied'
-                        }).data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>');
-                        });
-                    }
-                });
-            });
-
-        },
-
+	    },
+	   
 	} );
+
+    $('select.column_filter').on('keyup click', function () {
+        filterColumn($(this).attr('data-column'));
+    });
 } );
 
 </script>

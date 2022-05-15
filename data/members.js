@@ -2071,7 +2071,7 @@ var members = [{
         "doj": "2004-10-25",
         "phone": 9412116822,
         "office_id": 3044,
-        "office": "Mussoorie Dehradun Development Authority.",
+        "office": "MDDA",
         "designation_id": 20,
         "post": "Assistant Engineer Civil",
         "short_post": "AE (Civil)",
@@ -3834,7 +3834,7 @@ var members = [{
         "office": "CE-Dehradun",
         "designation_id": 26,
         "post": "Chief Engineer Level-II",
-        "short_post": "CE (L-II)",
+        "short_post": "CE",
         "prabhari": 0,
         "remark": null
     },

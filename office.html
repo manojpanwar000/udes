@@ -98,11 +98,11 @@
 <script src="data/members.js"></script>
 <script src="data/offices.js"></script>
 <script type="text/javascript">
-var usedNames = [];
+var offices = [];
 $.each(members, function(key, value) {
-	if (usedNames.indexOf(value.name) == -1) {
+	if (offices.indexOf(value.name) == -1) {
     	$("#offices").append("<option value=" + key + ">" + value.office + "</option>");
-        usedNames.push(value.name);
+        offices.push(value.name);
     }
 });
 
