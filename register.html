@@ -65,9 +65,25 @@
 	    </div>
     </nav>
 </div>
-<div class="m-3" >
-	<select class="column_filter" id="col7_filter" data-column="7"> </select>
-	<select class="column_filter" id="col8_filter" data-column="8"> </select>
+<div class="d-flex justify-content-start ms-3">
+	<div class="input-group">
+	    <div class="input-group-prepend">
+	      <div class="input-group-text bg-primary text-light">Office</div>
+	    </div>
+	    <select class="column_filter" id="col7_filter" data-column="7"> </select>
+	 </div>
+	<div class="input-group">
+	    <div class="input-group-prepend">
+	      <div class="input-group-text bg-primary text-light">Designation</div>
+	    </div>
+	    <select class="column_filter" id="col6_filter" data-column="6"> </select>
+	 </div>
+	<div class="input-group">
+	    <div class="input-group-prepend">
+	      <div class="input-group-text bg-primary text-light">Status</div>
+	    </div>
+	    <select class="column_filter" id="col8_filter" data-column="8"> </select>
+	 </div>
 </div>
 <div class="table-responsive bg-light  m-3" >
 	<table id="example" class="table table-sm" style="font-family: 'Pragati Narrow', sans-serif; width:100%">
@@ -98,124 +114,110 @@
 
 <script src="data/members.js"></script>
 <script type="text/javascript">
-var offices = designations = [];
+	var offices = [];
+	var	designations = [];
+	var	remark = [];
 
-$.each(members, function(key, value) {
-    offices.push(value.office);
-    designations.push(value.short_post);
-});
+	$.each(members, function(key, value) {
+	    offices.push(value.office);
+	    remark.push(value.remark);
+	    designations.push(value.short_post);
+	});
 
-offices = offices.filter((x, i, a) => a.indexOf(x) == i)
-designations = designations.filter((x, i, a) => a.indexOf(x) == i)
+	offices = offices.filter((x, i, a) => a.indexOf(x) == i)
+	designations = designations.filter((x, i, a) => a.indexOf(x) == i)
+	remark = remark.filter((x, i, a) => a.indexOf(x) == i)
 
-var officeoptions = '<option value="">All</option>';
+	var officeoptions = '<option value="">All</option>';
+		for (var i = 0; i < offices.length; i++) {
+		   officeoptions += '<option value="' + offices[i]+ '">' + offices[i] + '</option>';
+		}
+		$("#col7_filter").html(officeoptions);
+	var designationoptions = '<option value="">All</option>';
+		for (var i = 0; i < designations.length; i++) {
+		   designationoptions += '<option value="' + designations[i]+ '">' + designations[i] + '</option>';
+		}
+		$("#col6_filter").html(designationoptions);
+	var statusoptions = '<option value="">All</option>';
+		for (var i = 0; i < remark.length; i++) {
+		   statusoptions += '<option value="' + remark[i]+ '">' + remark[i] + '</option>';
+		}
+		$("#col8_filter").html(statusoptions);
 
-for (var i = 0; i < offices.length; i++) {
-   officeoptions += '<option value="' + offices[i]+ '">' + offices[i] + '</option>';
-}
-$("#col7_filter").html(officeoptions);
+	function filterColumn(i) {
+	   	let t = $("#col" + i + "_filter option:selected").text();
+	   	if(t == "All"){
+	   		$('#example').DataTable().column(i).search("").draw();
+	   	}else{
+	    	$('#example').DataTable().column(i).search(t).draw();
+	   	}
+	}
 
-var designationoptions = '<option value="">All</option>';
-for (var i = 0; i < designations.length; i++) {
-   designationoptions += '<option value="' + designations[i]+ '">' + designations[i] + '</option>';
-}
-
-$("#col8_filter").html(designationoptions);
-
-
-/*console.log(offices);
-console.log(designations);*/
-/*
-$.each(members, function(key, value) {
-	if (designations.indexOf(value.name) == -1) {
-    	//$("#col8_filter").append("<option value=" + key + ">" + value.short_post + "</option>");
-    }
-});*/
-
-function filterColumn(i) {
-   	let t = $("#col" + i + "_filter option:selected").text();
-   	if(t == "All"){
-   		$('#example')
-        .DataTable()
-        .column(i)
-        .search("")
-        .draw();
-   	}else{
-
-    	$('#example')
-        .DataTable()
-        .column(i)
-        .search(t)
-        .draw();
-   	}
-    }
-
-
-$(document).ready( function () {
-	var table = $('#example').dataTable( {
-		"dom": 'fBrtip',
-	    "buttons": [
-	            'pageLength','print'
-	        ],
-	    "lengthMenu": [
-	        [ 15, 30, 100, -1 ],
-	        [ '15 rows', '30 rows','100 rows', 'Show all' ]
-	    ],
-	    "data": members ,
-	    "columns": [
-	        {  "data": "membership_no" },
-	        {  "data": function ( row, type, val, meta ) {
-		        	if(row["name"]){
-		        		return row["name_h"] + "<br><span class='fst-italic'>" + row["name"]+ "</span>";
-		        	}else{
-		        		return row["name_h"];
+	$(document).ready( function () {
+		var table = $('#example').dataTable( {
+			"dom": 'fBrtip',
+		    "buttons": [
+		            'pageLength','print'
+		        ],
+		    "lengthMenu": [
+		        [ 15, 30, 100, -1 ],
+		        [ '15 rows', '30 rows','100 rows', 'Show all' ]
+		    ],
+		    "data": members ,
+		    "columns": [
+		        {  data: "membership_no" },
+		        {  data: function ( row, type, val, meta ) {
+			        	if(row["name"]){
+			        		return row["name_h"] + "<br><span class='fst-italic'>" + row["name"]+ "</span>";
+			        	}else{
+			        		return row["name_h"];
+			        	}
 		        	}
-	        	}
-		    },
-	        {  "data": function ( row, type, val, meta ) {
-		        	if(row["father_name"]){
-		        		return row["father_name_h"] + "<br><span class='fst-italic'>" + row["father_name"]+ "</span>";
-		        	}else{
-		        		return row["father_name_h"];
-		        	}	
-	        	}
-		    },
-	        {  "data": function ( row, type, val, meta ) {
-	        		if(row["emp_id"]){
-		        		return row["emp_id"]+"<br>"+row["phone"];
-	        		}else{
-	        			return "";
-	        		}
-	        	}
-		    },
-		    { "data": "dob" },
-		    { "data": "doj" },
-		    {  "data": function ( row, type, val, meta ) {
-		        	if(row["prabhari"] == 1){
-		        		return row["short_post"]+"<br><span class='fst-italic'>(प्रभारी)</span>";
-		        	}else{
-		        		return row["short_post"];
+			    },
+		        {  data: function ( row, type, val, meta ) {
+			        	if(row["father_name"]){
+			        		return row["father_name_h"] + "<br><span class='fst-italic'>" + row["father_name"]+ "</span>";
+			        	}else{
+			        		return row["father_name_h"];
+			        	}	
 		        	}
-	        	}
-		    },
-		    { "data": "office" },
-	        { "data": "remark" },
-		    
-	    ],
-
-	    rowCallback: function(row, data, index){
-	            if ( data.remark) {
+			    },
+		        {  data: function ( row, type, val, meta ) {
+		        		if(row["emp_id"]){
+			        		return row["emp_id"]+"<br>"+row["phone"];
+		        		}else{
+		        			return "";
+		        		}
+		        	}
+			    },
+			    { data: "dob" },
+			    { data: "doj" },
+			    { data: function ( row, type, val, meta ) {
+			        	if(row["prabhari"] == 1){
+			        		return row["short_post"]+"<br><span class='fst-italic'>(प्रभारी)</span>";
+			        	}else{
+			        		return row["short_post"];
+			        	}
+		        	}
+			    },
+			    { data: "office" },
+		        { data: "remark" },
+		    ],
+		    columnDefs: [
+			    { className: 'text-left', targets: [1,2] },
+			    { className: 'text-center', targets: [0,3,4,5,6,7,8] },
+			  ],
+		    rowCallback: function(row, data, index){
+	            if ( data.remark != '---') {
 	                $('td', row).css('background-color', '#FDFAB9');
-	                //$('td', row).css('display', 'none');
 	            }
-	    },
-	   
+		    },
+		   
+		} );
+
+	    $('select.column_filter').on('keyup click', function () {
+	        filterColumn($(this).attr('data-column'));
+	    });
 	} );
-
-    $('select.column_filter').on('keyup click', function () {
-        filterColumn($(this).attr('data-column'));
-    });
-} );
-
 </script>
 </html>
