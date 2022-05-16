@@ -131,6 +131,11 @@
 	   	}
 	}
 
+	$(document).on('change','select#col7_filter', function(){filterColumn(7); });
+    $(document).on('change','select#col6_filter', function(){filterColumn(6); });
+    $(document).on('change','select#col8_filter', function(){filterColumn(8); });
+
+
 	$(document).ready( function () {
 		var table = $('#example').dataTable( {
 			"dom": 'fBrtip',
@@ -204,15 +209,6 @@
 		   
 		} );
 
-/*	    $('select.column_filter').on('keyup click', function () {
-	        filterColumn($(this).attr('data-column'));
-	    });*/
-	    $(document).on('change','#col7_filter', function(){filterColumn(7); });
-	    $(document).on('change','#col6_filter', function(){filterColumn(6); });
-	    $(document).on('change','#col8_filter', function(){filterColumn(8); });
-/*	    $('#col7_filter').change(function () { filterColumn(7); });
-	    $('#col6_filter').change(function () { filterColumn(6); });
-	    $('#col8_filter').change(function () { filterColumn(8); });*/
 	} );
 </script>
 </html>
