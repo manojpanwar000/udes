@@ -51,25 +51,19 @@
 		    </div>
 	    </nav>
 </div>
+<div class="row ms-3">
+	<div class="col-md-auto">
+		    <select class="column_filter" id="col7_filter" data-column="7"> </select>
+	</div>
+	<div class="col-md-auto">
+		    <select class="column_filter" id="col6_filter" data-column="6"> </select>
+	</div>
+	<div class="col-md-auto">
+		    <select class="column_filter" id="col8_filter" data-column="8"> </select>
+	</div>
+	
+</div>
 <div class="d-flex justify-content-start ms-3">
-	<div class="input-group">
-	    <div class="input-group-prepend">
-	      <div class="input-group-text bg-primary text-light">Office</div>
-	    </div>
-	    <select class="column_filter" id="col7_filter" data-column="7"> </select>
-	 </div>
-	<div class="input-group">
-	    <div class="input-group-prepend">
-	      <div class="input-group-text bg-primary text-light">Designation</div>
-	    </div>
-	    <select class="column_filter" id="col6_filter" data-column="6"> </select>
-	 </div>
-	<div class="input-group">
-	    <div class="input-group-prepend">
-	      <div class="input-group-text bg-primary text-light">Status</div>
-	    </div>
-	    <select class="column_filter" id="col8_filter" data-column="8"> </select>
-	 </div>
 </div>
 <div class="table-responsive bg-light  m-3" >
 	<table id="example" class="table table-sm" style="font-family: 'Pragati Narrow', sans-serif; width:100%">
@@ -114,17 +108,17 @@
 	designations = designations.filter((x, i, a) => a.indexOf(x) == i)
 	remark = remark.filter((x, i, a) => a.indexOf(x) == i)
 
-	var officeoptions = '<option value="">All</option>';
+	var officeoptions = '<option value="">All Offices</option>';
 		for (var i = 0; i < offices.length; i++) {
 		   officeoptions += '<option value="' + offices[i]+ '">' + offices[i] + '</option>';
 		}
 		$("#col7_filter").html(officeoptions);
-	var designationoptions = '<option value="">All</option>';
+	var designationoptions = '<option value="">All Designations</option>';
 		for (var i = 0; i < designations.length; i++) {
 		   designationoptions += '<option value="' + designations[i]+ '">' + designations[i] + '</option>';
 		}
 		$("#col6_filter").html(designationoptions);
-	var statusoptions = '<option value="">All</option>';
+	var statusoptions = '<option value="">All Status</option>';
 		for (var i = 0; i < remark.length; i++) {
 		   statusoptions += '<option value="' + remark[i]+ '">' + remark[i] + '</option>';
 		}
@@ -132,7 +126,7 @@
 
 	function filterColumn(i) {
 	   	let t = $("#col" + i + "_filter option:selected").text();
-	   	if(t == "All"){
+	   	if(t.startsWith("All")){
 	   		$('#example').DataTable().column(i).search("").draw();
 	   	}else{
 	    	$('#example').DataTable().column(i).search(t).draw();
