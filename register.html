@@ -64,13 +64,13 @@
 	
 </div>
 <div class="table-responsive bg-light  m-3" >
-	<table id="example" class="table table-sm" style="font-family: 'Pragati Narrow', sans-serif; width:100%">
+	<table id="example" class="table table-sm table-bordered" style="font-family: 'Pragati Narrow', sans-serif; width:100%">
 		<thead>
 			<tr class="text-center align-middle fw-bold text-white " style="background-color: #2632F0;">
 				<td>सदस्यता<br>क्रमांक </td>
 				<td>सदस्य का नाम </td>
 				<td>पिता/ पति का नाम </td>
-				<td>कार्मिक कोड<br>/ फोन न</td>
+				<td>कार्मिक कोड</td> <!-- <br>/ फोन न -->
 				<td>जन्म<br>तिथि</td>
 				<td>Joining<br>Date</td>
 				<td>पद</td>
@@ -134,9 +134,20 @@
 	$(document).ready( function () {
 		var table = $('#example').dataTable( {
 			"dom": 'fBrtip',
-		    "buttons": [
+			'buttons': [
+				'pageLength',
+				{
+				    extend: 'print',
+				    text: 'Print',
+				    exportOptions: {
+				        stripHtml: false
+				    }
+				}
+				
+			],
+		    /*"buttons": [
 		            'pageLength','print'
-		        ],
+		        ],*/
 		    "lengthMenu": [
 		        [ 15, 30, 100, -1 ],
 		        [ '15 rows', '30 rows','100 rows', 'Show all' ]
@@ -162,7 +173,7 @@
 			    },
 		        {  data: function ( row, type, val, meta ) {
 		        		if(row["emp_id"]){
-			        		return row["emp_id"]+"<br>"+row["phone"];
+			        		return row["emp_id"]; //+"<br>"+row["phone"]
 		        		}else{
 		        			return "";
 		        		}
