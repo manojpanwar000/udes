@@ -54,29 +54,33 @@
 </div>
 <div class="row ms-3">
 	<div class="col-md-auto">
+		    <select class="column_filter" id="col8_filter" data-column="8"> </select>
+	</div>
+	<div class="col-md-auto">
 		    <select class="column_filter" id="col7_filter" data-column="7"> </select>
 	</div>
 	<div class="col-md-auto">
-		    <select class="column_filter" id="col6_filter" data-column="6"> </select>
-	</div>
-	<div class="col-md-auto">
-		    <select class="column_filter" id="col8_filter" data-column="8"> </select>
+		    <select class="column_filter" id="col9_filter" data-column="9"> </select>
 	</div>
 	
 </div>
 <div class="table-responsive bg-light  m-3" >
 	<table id="example" class="table table-sm table-bordered" style="font-family: 'Pragati Narrow', sans-serif; width:100%">
 		<thead>
-			<tr class="text-center align-middle fw-bold text-white " style="background-color: #2632F0;">
-				<td>सदस्यता<br>क्रमांक </td>
-				<td>सदस्य का नाम </td>
-				<td>पिता/ पति का नाम </td>
-				<td>कार्मिक कोड</td> <!-- <br>/ फोन न -->
-				<td>जन्म<br>तिथि</td>
-				<td>Joining<br>Date</td>
-				<td>पद</td>
-				<td>कार्यालय</td>
-				<td>टिप्पणी</td>
+			<tr class="text-center align-middle fw-bold text-white" style="background-color: #2632F0;">
+				<td colspan="2">सदस्यता</td>
+				<td rowspan="2">सदस्य का नाम </td>
+				<td rowspan="2">पिता/ पति का नाम </td>
+				<td rowspan="2">कार्मिक कोड</td> <!-- <br>/ फोन न -->
+				<td rowspan="2">जन्म<br>तिथि</td>
+				<td rowspan="2">Joining<br>Date</td>
+				<td rowspan="2">पद</td>
+				<td rowspan="2">कार्यालय</td>
+				<td rowspan="2">टिप्पणी</td>
+			</tr>
+			<tr class="text-center align-middle fw-bold text-white" style="background-color: #2632F0;">
+				<td>क्रमांक </td>
+				<td>दिनांक </td>
 			</tr>
 		</thead>
 		<tbody >
@@ -111,17 +115,17 @@
 		for (var i = 0; i < offices.length; i++) {
 		   officeoptions += '<option value="' + offices[i]+ '">' + offices[i] + '</option>';
 		}
-		$("#col7_filter").html(officeoptions);
+		$("#col8_filter").html(officeoptions);
 	var designationoptions = '<option value="">All Designations</option>';
 		for (var i = 0; i < designations.length; i++) {
 		   designationoptions += '<option value="' + designations[i]+ '">' + designations[i] + '</option>';
 		}
-		$("#col6_filter").html(designationoptions);
+		$("#col7_filter").html(designationoptions);
 	var statusoptions = '<option value="">All Status</option>';
 		for (var i = 0; i < remark.length; i++) {
 		   statusoptions += '<option value="' + remark[i]+ '">' + remark[i] + '</option>';
 		}
-		$("#col8_filter").html(statusoptions);
+		$("#col9_filter").html(statusoptions);
 
 	function filterColumn(i) {
 	   	let t = $("#col" + i + "_filter option:selected").text();
@@ -132,9 +136,9 @@
 	   	}
 	}
 
-	$(document).on('change','select#col7_filter', function(){filterColumn(7); });
-    $(document).on('change','select#col6_filter', function(){filterColumn(6); });
-    $(document).on('change','select#col8_filter', function(){filterColumn(8); });
+	$(document).on('change','select#col8_filter', function(){filterColumn(8); });
+    $(document).on('change','select#col7_filter', function(){filterColumn(7); });
+    $(document).on('change','select#col9_filter', function(){filterColumn(9); });
 
 
 	$(document).ready( function () {
@@ -151,9 +155,6 @@
 				}
 				
 			],
-		    /*"buttons": [
-		            'pageLength','print'
-		        ],*/
 		    "lengthMenu": [
 		        [ 15, 30, 100, -1 ],
 		        [ '15 rows', '30 rows','100 rows', 'Show all' ]
@@ -161,6 +162,7 @@
 		    "data": members ,
 		    "columns": [
 		        {  data: "membership_no" },
+		        {  data: "dom" },
 		        {  data: function ( row, type, val, meta ) {
 			        	if(row["name"]){
 			        		return row["name_h"] + "<br><span class='fst-italic'>" + row["name"]+ "</span>";
@@ -199,8 +201,8 @@
 		        { data: "remark" },
 		    ],
 		    columnDefs: [
-			    { className: 'text-left', targets: [1,2] },
-			    { className: 'text-center', targets: [0,3,4,5,6,7,8] },
+			    { className: 'text-left', targets: [2,3] },
+			    { className: 'text-center', targets: [0,1,4,5,6,7,8,9] },
 			  ],
 		    rowCallback: function(row, data, index){
 	            if ( data.remark != '---') {
@@ -209,7 +211,7 @@
 		    },
 		   
 		} );
-		$('.column_filter').select2();
+		$('.js-example-basic-single').select2();
 	} );
 </script>
 </html>
