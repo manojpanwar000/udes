@@ -62,6 +62,12 @@
 	<div class="col-md-auto">
 		    <select class="column_filter" id="col9_filter" data-column="9"> </select>
 	</div>
+	<!-- <div class="col-md-auto">
+		    <select id="data_filter"> 
+		    	<option value="0" >All Members</option>
+		    	<option value="1" selected>Current Only</option>
+		    </select>
+	</div> -->
 	
 </div>
 <div class="table-responsive bg-light  m-3" >
@@ -100,6 +106,13 @@
 	var offices = [];
 	var	designations = [];
 	var	remark = [];
+	/*$(document).on('change','select#data_filter', function(){
+		//alert();
+		var optionValue = $("select#data_filter option").filter(":selected").val(); 
+		if(optionValue == 1){
+			
+		}
+	});*/
 
 	$.each(members, function(key, value) {
 	    offices.push(value.office);
