@@ -139,7 +139,14 @@
 	$(document).on('change','select#col8_filter', function(){filterColumn(8); });
     $(document).on('change','select#col7_filter', function(){filterColumn(7); });
     $(document).on('change','select#col9_filter', function(){filterColumn(9); });
-
+	
+	function titleCase(str) {
+	  str = str.toLowerCase().split(' ');
+	  for (var i = 0; i < str.length; i++) {
+	    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+	  }
+	  return str.join(' ');
+	}
 
 	$(document).ready( function () {
 		var table = $('#example').dataTable( {
@@ -165,7 +172,7 @@
 		        {  data: "dom" },
 		        {  data: function ( row, type, val, meta ) {
 			        	if(row["name"]){
-			        		return row["name_h"] + "<br><span class='fst-italic'>" + row["name"]+ "</span>";
+			        		return titleCase(row["name"]);
 			        	}else{
 			        		return row["name_h"];
 			        	}
@@ -173,7 +180,7 @@
 			    },
 		        {  data: function ( row, type, val, meta ) {
 			        	if(row["father_name"]){
-			        		return row["father_name_h"] + "<br><span class='fst-italic'>" + row["father_name"]+ "</span>";
+			        		return titleCase(row["father_name"]);
 			        	}else{
 			        		return row["father_name_h"];
 			        	}	
