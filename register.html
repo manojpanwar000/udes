@@ -170,10 +170,9 @@
 				    extend: 'print',
 				    text: 'Print',
 				    exportOptions: {
-				        stripHtml: false
+				    stripHtml: false
 				    }
 				}
-				
 			],
 		    "lengthMenu": [
 		        [ 15, 30, 100, -1 ],
@@ -184,37 +183,21 @@
 		        {  data: "membership_no" },
 		        {  data: "dom" },
 		        {  data: function ( row, type, val, meta ) {
-			        	if(row["name"]){
-			        		return titleCase(row["name"]);
-			        	}else{
-			        		return row["name_h"];
-			        	}
+		        		return row["name"] ? titleCase(row["name"]) : row["name_h"];
 		        	}
 			    },
 		        {  data: function ( row, type, val, meta ) {
-			        	if(row["father_name"]){
-			        		return titleCase(row["father_name"]);
-			        	}else{
-			        		return row["father_name_h"];
-			        	}	
+		        		return row["father_name"] ? titleCase(row["father_name"]) : row["father_name_h"];
 		        	}
 			    },
 		        {  data: function ( row, type, val, meta ) {
-		        		if(row["emp_id"]){
-			        		return row["emp_id"]; //+"<br>"+row["phone"]
-		        		}else{
-		        			return "";
-		        		}
+		        		return row["emp_id"] ?? '---';
 		        	}
 			    },
 			    { data: "dob" },
 			    { data: "doj" },
 			    { data: function ( row, type, val, meta ) {
-			        	if(row["prabhari"] == 1){
-			        		return row["short_post"]+"<br><span class='fst-italic'>(प्रभारी)</span>";
-			        	}else{
-			        		return row["short_post"];
-			        	}
+			    		return row["prabhari"] == 1 ? row["short_post"]+"<br><span class='fst-italic'>(प्रभारी)</span>" : row["short_post"];
 		        	}
 			    },
 			    { data: "office" },
